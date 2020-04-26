@@ -1,0 +1,48 @@
+// 颜色定义规范
+@color-background: rgba(255, 255, 255, 0.1);
+@color-font: #a2ecff;
+@color-anim: rgba(0, 0, 0, 0.5);
+
+//字体定义规范
+@font-size-small: 0.12rem;
+@font-size-medium: 0.14rem;
+@font-size-medium-x: 0.16rem;
+@font-size-large: 0.18rem;
+@font-size-large-x: 0.22rem;
+
+//不换行
+.no-wrap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.left {
+  float: left;
+  min-height: 1rem;
+}
+.center {
+  width: 100%;
+  text-align: center;
+}
+.middle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.title {
+  color: #fff;
+  font-size: 34px;
+  text-align: center;
+  height: 74px;
+  line-height: 66px;
+}
+.back{
+  background: rgba(255,255,255,0.1);
+}
+.pointerFilter {
+  cursor: pointer;
+  &:hover {
+    filter: brightness(50%);
+  }
+}
+

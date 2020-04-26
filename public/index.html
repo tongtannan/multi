@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app">
+      <!--vue-ssr-outlet-->
+    </div>
+    <div id="text">1</div>
+    <input type="text" id="input" />
+    <button onclick="handleText(1)">+++</button>
+    <button onclick="handleText(-1)">---</button>
+    <script>
+      // const obj = {};
+      // let defaultText = 1;
+      // Object.defineProperty(obj, 'text', {
+      //   get(val) {
+      //     console.log(val);
+      //     return defaultText;
+      //   },
+      //   set(val) {
+      //     console.log(val);
+      //     defaultText = val;
+      //     document.getElementById('text').innerHTML = val;
+      //   }
+      // });
+
+      // const obj = {};
+      // const text = document.getElementById('text');
+      // const input = document.getElementById('input');
+      // Object.defineProperty(obj, 'text', {
+      //   get() {
+      //     return text.innerHTML;
+      //   },
+      //   set(val) {
+      //     text.innerHTML = val;
+      //     this.val = val;
+      //   }
+      // });
+      // window.addEventListener('input', function(e) {
+      //   const dom = e.target;
+      //   if (dom.id === 'input') {
+      //     obj.text = dom.value;
+      //   }
+      // });
+
+      const obj = {};
+      const text = document.getElementById('text');
+      Object.defineProperty(obj, 'text', {
+        get() {
+          return Number(text.innerHTML);
+        },
+        set(val) {
+          text.innerHTML = val;
+        }
+      });
+      function handleText(num) {
+        obj.text += num;
+        input.value = obj.text;
+      }
+
+      function parent(aaa) {
+        this.aaa = aaa;
+      }
+      parent.prototype.sayAaa = function() {
+        console.log(this.aaa);
+      };
+      function child(bbb, aaa) {
+        parent.call(this, aaa);
+        this.bbb = bbb;
+      }
+      // child.prototype = Object.create(parent.prototype);
+      // child.prototype.constructor = child;
+      // const newChild = new child('b', 'a');
+      // console.log(newChild);
+      // newChild.sayAaa();
+      function getPro(p) {
+        function copy() {}
+        copy.prototype = p;
+        return new copy();
+      }
+      child.prototype = getPro(parent.prototype);
+      child.prototype.constructor = child;
+      const newChild = new child('b', 'a');
+      console.log(newChild);
+      newChild.sayAaa();
+    </script>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
